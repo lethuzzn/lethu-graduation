@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>lethu's graduation</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23444444' stroke-width='1.5'%3E%3Cpath d='M2 8L12 2L22 8L12 14L2 8Z' stroke='currentColor' fill='none'/%3E%3Cpath d='M5 10V16L12 20L19 16V10' stroke='currentColor' fill='none'/%3E%3Cpath d='M12 14V20' stroke='currentColor'/%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Reenie+Beanie&family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap&subset=vietnamese" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Plus Jakarta Sans', sans-serif;
+background:white;
+color:black;
+overflow-x: hidden; /* Tránh cuộn ngang khi pháo hoa nổ */
+}
+
+/* navbar */
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 40px;
+border-bottom:1px solid #eee;
+position: relative;
+z-index: 10;
+}
+
+.logo{
+font-family:'Reenie Beanie', cursive;
+font-size:32px;
+}
+
+/* container chính */
+.main-container{
+max-width:920px;
+margin:25px auto;
+text-align:center;
+padding:0 20px;
+position: relative;
+z-index: 5;
+}
+
+.hello{font-size:30px;margin-bottom:10px;}
+
+.hand{
+font-family:'Cormorant Garamond', serif;
+font-style:italic;
+font-size:30px;
+margin-bottom:10px;
+}
+
+.subtitle{
+color:#666;
+margin-bottom:30px;
+font-size:14px;
+}
+
+/* spotify */
+.spotify{
+margin:30px auto;
+max-width:520px;
+opacity:0;
+transform:translateY(20px);
+animation:slideUp 2s ease forwards;
+}
+
+@keyframes slideUp{
+to{opacity:1;transform:translateY(0);}
+}
+
+/* message */
+.message-title{color:#666;margin-bottom:12px;font-size:14px;}
+
+.message{
+font-family:'Cormorant Garamond', serif;
+font-style:italic;
+font-size:20px;
+line-height:1.8;
+max-width:760px;
+margin:16px auto;
+color: #333;
+}
+
+/* snoopy */
+.snoopy{
+width:140px;
+margin-top:30px;
+opacity:0;
+transform:translateY(20px);
+}
+
+.show-snoopy{
+animation:fadeUp 1s ease forwards, float 4s ease-in-out infinite;
+}
+
+@keyframes fadeUp{
+to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-6px);}
+100%{transform:translateY(0);}
+}
+
+/* fireworks canvas */
+#fireworks{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index: 1; /* Nằm dưới nội dung chính */
+}
+
+.extra{opacity:0;margin-top:20px; color: #555;}
+
+/* ===== TICKET STYLE - NGANG, MONO ĐEN TRẮNG ===== */
+.ticket-section {
+    margin: 40px auto 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s, transform 0.8s;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.show-ticket {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* THẺ VÉ NGANG - MONO ĐEN TRẮNG */
+.ticket-card {
+    width: 720px;
+    max-width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Bố cục ngang: Chia làm 2 cột */
+.ticket-row {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Cột bên trái: Thông tin chính */
+.ticket-info-col {
+    flex: 2;
+    padding: 24px 28px;
+    border-right: 1px solid #000000;
+    text-align: left;
+}
+
+/* Cột bên phải: Nút và lời nhắn mới */
+.ticket-action-col {
+    flex: 1;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fdfdfd; /* Màu nền nhẹ hơn một chút cho cột hành động */
+}
+
+/* Tiêu đề sự kiện */
+.event-title-main {
+    font-size: 26px;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+}
+
+.event-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333333;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #dddddd;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Các dòng thông tin với SVG */
+.info-line {
+    display: flex;
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #111111;
+    line-height: 1.5;
+    align-items: flex-start;
+}
+
+.info-icon {
+    min-width: 28px;
+    height: 28px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: #555555;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.info-text {
+    font-weight: 400;
+    flex: 1;
+}
+
+.info-text strong {
+    font-weight: 600;
+    color: #000000;
+}
+
+.contact-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+}
+
+.contact-note svg {
+    width: 12px;
+    height: 12px;
+    stroke: #d4266f;
+    fill: none;
+}
+
+/* LỜI NHẮN MỚI TRÊN NÚT BẤM */
+.buy-ticket-note {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    line-height:20px;
+    gap: 3px;
+    letter-spacing: 0.5px;
+    color: #333;
+    text-align: center;
+}
+
+/* Nút Lưu Vé */
+.buy-ticket-btn {
+    background-color: #000000;
+    color: white;
+    border: 1px solid #000000;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.buy-ticket-btn:hover {
+    background-color: #333333;
+    border-color: #333333;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .ticket-row {
+        flex-direction: column;
+    }
+    .ticket-info-col {
+        border-right: none;
+        border-bottom: 1px solid #000000;
+    }
+    .ticket-info-col, .ticket-action-col {
+        padding: 20px;
+    }
+}
+
+/* Thông báo */
+.cart-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #000000;
+    color: white;
+    padding: 14px 28px;
+    transform: translateX(450px);
+    transition: transform 0.4s ease;
+    z-index: 1000;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #333;
+}
+
+.cart-notification.show {
+    transform: translateX(0);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+<div class="logo">lethu's graduation</div>
+</nav>
+
+<div class="main-container">
+
+<h2 class="hand">Sư phụuuuuuuuu
+</h2>
+
+<p class="subtitle">
+Ngộ Không có bài hát gửi Sư phụ nghe cho dui :)
+</p>
+
+<div class="spotify">
+<iframe style="border-radius:12px"
+src="https://open.spotify.com/embed/track/5wYQC7AuxV8ROALWcbVNxc"
+width="100%"
+height="152"
+frameborder="0"
+allow="autoplay; clipboard-write; encrypted-media; fullscreen"
+loading="lazy">
+</iframe>
+</div>
+
+<p class="message-title">
+Con cũng có 1 vài lời xến mún nói:
+</p>
+
+<p class="message" id="message"></p>
+
+<img src="snoopy grad.png" class="snoopy" alt="Snoopy" onerror="this.src='https://via.placeholder.com/140x140?text=Snoopy'">
+
+<p class="message extra" id="extraMessage"></p>
+
+<div class="ticket-section" id="ticketSection">
+    <div class="ticket-card">
+        <div class="ticket-row">
+            <div class="ticket-info-col">
+                <div class="event-title-main">TỐT NGHIỆP NGỘ KHÔNG</div>
+                <div class="event-subtitle">Thông tin thư mời</div>
+
+                <div class="info-line">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                            <polyline points="12 6 12 12 16 14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="info-text">
+                        <strong>16:03- 17:24</strong> • Thứ Bảy, 04.04.2026
+                    </div>
+                </div>
+                
+                <div class="info-line">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                            <circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="info-text">
+                        <strong>Đại học Kinh tế - Cơ sở A</strong>
+                    </div>
+                </div>
+                 
+                <div class="info-line">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="info-text">
+                        <strong>0947 325 132</strong>
+                        <div class="contact-note">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                            </svg>
+                            Mọi mặt trận xô xồ của Ngộ Không
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ticket-action-col">
+                <span class="buy-ticket-note">
+                    can't wait to see yu & đừng quên mang yù
+                </span>
+                <button class="buy-ticket-btn" id="buyTicketBtn">BỎ THƯ ZÔ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="cart-notification" id="cartNotification">
+    <span>✓</span> Ngộ Không đợi Sư phụ <3
+</div>
+
+<canvas id="fireworks"></canvas>
+
+<script>
+
+// TEXT 1
+const text = `Khép lại một chương nữa của hành trình trưởng thành của đệ tử.
+Mở ra một chặng đường mới chưa biết trước điều gì, nhưng con biết chắc rằng
+con sẽ luôn luôn nhớ sư phụ, người anh và cũng là người bạn của con, con trân quý lắm.
+Cảm ơn sư phụ vì đã luôn ở đó, chỉ dạy con những bài học vỡ lòng về Ps,
+Cảm ơn anh Hưng Thịnh vì đã luôn cho em những lời khuyên chân thành nhất,
+Và cảm ơn anh vì đã là một người bạn của em trong suốt thời gian đó.
+Nhờ có sự xuất hiện này, đệ tử đã lấy được chân kinh <3`
+
+const message = document.getElementById("message")
+const snoopy = document.querySelector(".snoopy")
+ 
+// TEXT 2
+const extraText = `Cảm ơn sư phụ vì đã là một phần trong suốt quãng thời gian thỉnh kinh của con\nHy vọng chiều ngày 4/4 sư phụ sẽ dành chút thời gian để bái Như Lai với đệ tử nha`
+
+const extraMessage = document.getElementById("extraMessage")
+const ticketSection = document.getElementById("ticketSection")
+const buyBtn = document.getElementById("buyTicketBtn")
+const cartNotification = document.getElementById("cartNotification")
+
+let index = 0
+
+function typeWriter(){
+
+if(index < text.length){
+
+if(text[index] === "\n"){
+message.innerHTML += "<br>"
+}else{
+message.innerHTML += text[index]
+}
+
+index++
+setTimeout(typeWriter,40)
+
+}else{
+
+setTimeout(()=>{
+snoopy.classList.add("show-snoopy")
+
+setTimeout(()=>{
+startFireworks()
+
+setTimeout(()=>{
+typeExtra()
+},1500)
+
+},800)
+
+},300)
+
+}
+
+}
+
+typeWriter()
+
+// TEXT 2
+let extraIndex = 0
+
+function typeExtra(){
+
+if(extraIndex < extraText.length){
+
+extraMessage.style.opacity = 1
+
+if(extraText[extraIndex] === "\n"){
+extraMessage.innerHTML += "<br>"
+}else{
+extraMessage.innerHTML += extraText[extraIndex]
+}
+
+extraIndex++
+setTimeout(typeExtra,40)
+
+}else{
+ticketSection.classList.add("show-ticket")
+}
+
+}
+
+// FIREWORKS - ĐÃ ĐỔI SANG MÀU ĐEN
+const canvas = document.getElementById("fireworks")
+const ctx = canvas.getContext("2d")
+
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
+
+let particles = []
+
+function createFirework(x,y){
+for(let i=0;i<80;i++){
+particles.push({
+x:x,
+y:y,
+vx:(Math.random()-0.5)*6,
+vy:(Math.random()-0.5)*6,
+alpha:1
+})
+}
+}
+
+function animateFireworks(){
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+particles.forEach((p,index)=>{
+p.x += p.vx
+p.y += p.vy
+p.alpha -= 0.01
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,2,0,Math.PI*2)
+// ĐỔI SANG MÀU ĐEN (rgba(0,0,0,alpha))
+ctx.fillStyle = `rgba(0,0,0,${p.alpha})`
+ctx.fill()
+
+if(p.alpha <= 0){
+particles.splice(index,1)
+}
+})
+
+requestAnimationFrame(animateFireworks)
+}
+
+animateFireworks()
+
+function startFireworks(){
+for(let i=0;i<6;i++){
+setTimeout(()=>{
+createFirework(
+Math.random()*canvas.width,
+Math.random()*canvas.height/2
+)
+},i*300)
+}
+}
+
+// XỬ LÝ LƯU VÉ
+if(buyBtn) {
+    buyBtn.addEventListener("click", function() {
+        this.style.transform = "scale(0.97)";
+        setTimeout(() => {
+            this.style.transform = "scale(1)";
+        }, 150);
+        
+        cartNotification.classList.add("show");
+        
+        setTimeout(() => {
+            cartNotification.classList.remove("show");
+        }, 3000);
+        
+        createFirework(
+            this.offsetLeft + this.offsetWidth/2,
+            this.offsetTop
+        );
+    });
+}
+
+window.addEventListener('resize', () => {
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
+})
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>lethu's graduation</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500&display=swap&subset=vietnamese" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: white;
+    color: black;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.container {
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    padding: 40px 20px;
+}
+
+.title {
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 32px;
+}
+
+#inviteForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+/* HÀNG NGANG: Ô NHẬP + NÚT KẾ NHAU */
+.input-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+#password {
+    width: 220px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-family: 'Plus Jakarta Sans', monospace;
+    border: 1px solid #ccc;
+    background: white;
+    color: black;
+    text-align: center;
+    letter-spacing: 1px;
+    outline: none;
+    transition: border-color 0.2s;
+    border-radius: 30px;
+}
+
+#password:focus {
+    border-color: black;
+}
+
+/* NÚT ENTER */
+.enter-btn {
+    background: white;
+    color: black;
+    border: 1px solid black;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    border-radius: 30px;
+}
+
+.enter-btn:hover {
+    background: black;
+    color: white;
+    border-color: black;
+}
+
+/* THÔNG BÁO LỖI */
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 16px;
+    padding: 10px 20px;
+    background: #fff5f5;
+    border: 1px solid #ffcccc;
+    border-radius: 30px;
+    display: inline-block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="title">
+enter your birthday
+</h1>
+
+<p class="subtitle">
+For example: 24032004
+</p>
+
+<form id="inviteForm">
+
+<!-- Ô NHẬP VÀ NÚT ENTER KẾ NHAU -->
+<div class="input-group">
+    <input
+    type="password"
+    id="password"
+    placeholder="type here"
+    required
+    >
+    <button type="submit" class="enter-btn">enter</button>
+</div>
+
+<!-- Nơi hiển thị thông báo lỗi -->
+<div id="errorContainer"></div>
+
+</form>
+
+</div>
+
+<audio id="bgmusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Script xử lý form
+const form = document.getElementById('inviteForm');
+const passwordInput = document.getElementById('password');
+const errorContainer = document.getElementById('errorContainer');
+const audio = document.getElementById('bgmusic');
+
+// Định nghĩa các mật khẩu và trang tương ứng
+const passwordMap = {
+    '06102003': 'phu.html',
+    '25112002': 'thuy.html',
+    '19062004': 'hao.html',
+    '01052004': 'lamlam.html',
+    '01052004vv':'vivo.html',
+    '09022004':'minh.html',
+    '16032004':'trang.html',
+    '09102004':'nguyen.html',
+    '30102004':'ha.html',
+    '03052004':'thinh.html',
+    '16012004':'tlcv.html',
+    '30102004':'ha.html',
+    '11072004':'minhanh.html',
+    '09012003':'hoangduong.html',
+    '01042002':'suphu.html',
+    '06082004': 'lucnhi.html',
+    '15072004': 'nhathuyen.html',
+    '14082003': 'bino.html',
+    '23052004': 'hainam.html',
+    '21042003': 'tmh.html',
+    '13072003': 'ny.html',
+    '30112003': 'chu.html',
+    '02092004': 'minhquyen.html',
+    '02082004': 'bathien.html',
+    '10062004': 'mike.html',
+    '30042005': 'khauy.html',
+    '29052005': 'bichtram.html',
+    '05112005': 'giahuy.html',
+    '13092005': 'hoangviet.html',
+    '01062005': 'thanhtam.html',
+    '29052004': 'phuongminh.html',
+    '03112004': 'levy.html',
+    '01012005': 'thanhlan.html',
+    '04092004':'han.html',
+    '23122004': 'quyen.html',
+    '26102004':'vinh.html',
+    '05042000':'na.html',
+    '15092000':'sani.html',
+    '20052000':'mon.html',
+    '09112002': 'thanhvy.html'
+};
+
+// Tự động phát nhạc khi có tương tác
+document.body.addEventListener('click', function initAudio() {
+    audio.play().catch(e => console.log('Audio autoplay blocked'));
+    document.body.removeEventListener('click', initAudio);
+});
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const password = passwordInput.value.trim();
+    
+    // Kiểm tra mật khẩu có trong danh sách không
+    if (passwordMap[password]) {
+        // Đúng mật khẩu - chuyển hướng
+        window.location.href = passwordMap[password];
+    } else {
+        // Sai mật khẩu - hiển thị thông báo
+        errorContainer.innerHTML = '<div class="error-message">hic sorry hẹn dịp khác mình gặp nhau nhaa :(</div>';
+        
+        // Hiệu ứng sai mật khẩu
+        passwordInput.style.borderColor = '#ff0000';
+        passwordInput.style.animation = 'shake 0.3s ease-in-out';
+        
+        // Xóa input sau 1.5 giây
+        setTimeout(() => {
+            passwordInput.value = '';
+            passwordInput.style.borderColor = '#ccc';
+            passwordInput.style.animation = '';
+            
+            // Tự động xóa thông báo sau 3 giây
+            setTimeout(() => {
+                errorContainer.innerHTML = '';
+            }, 3000);
+        }, 1500);
+    }
+});
+
+// Thêm hiệu ứng shake
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+`;
+document.head.appendChild(style);
+</script>
+
+</body>
+
+</html>
